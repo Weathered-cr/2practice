@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
 </head>
 <body>
-    <h1>Регистрация</h1>
-    <form method="post">
+<div class="register">
+    <h1 class="reg-header">Регистрация</h1>
+    <form method="post" class="form-reg">
         {% csrf_token %}
-        {{ form.as_p }}  <!-- Отобразит форму регистрации -->
-        <button type="submit">Зарегистрироваться</button>
+        <div class="reg-form">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="reg-btn">Зарегистрироваться</button>
     </form>
-    <p><a href="{% url 'home' %}">Назад на главную</a></p>
+    <p><a href="{% url 'login' %}" class="reg-link">Если есть аккаунт: войти</a></p>
+    <p><a href="{% url 'home' %}" class="reg-link">Назад на главную</a></p>
+</div>
 </body>
 </html>

@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Главная страница</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
 </head>
 <body>
-  <h1>Добро пожаловать на главную страницу!</h1>
-  <p><a href="{% url 'login' %}">Войти</a></p>
-  <p><a href="{% url 'register' %}">Зарегистрироваться</a></p>
+<div class="home">
+    <h1 class="home-header">Добро пожаловать на главную страницу!</h1>
+    <a href="{% url 'login' %}" class="home-btn">Войти</a>
+    <a href="{% url 'register' %}" class="home-btn">Зарегистрироваться</a>
+</div>
 </body>
 </html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+</head>
+<body>
+    <div class="profile">
+        <h1>Добро пожаловать {{ user.username }}!</h1>
+        <p><a href="{% url 'home' %}" class="profile-btn">На главную</a></p>
+    </div>
+</body>
+</html>
