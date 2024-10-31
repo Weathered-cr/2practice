@@ -15,6 +15,10 @@
         <div class="reg-form">
             {{ form.as_p }}
         </div>
+        <div class="checkbox">
+            <input type="checkbox" id="agreement" name="agreement" required>
+            <label for="agreement">Я согласен с <a href="{% url 'rules' %}" class="link-check" target="_blank">правилами обработки данных</a>.</label>
+        </div>
         <button type="submit" class="reg-btn">Зарегистрироваться</button>
     </form>
     <p><a href="{% url 'login' %}" class="reg-link">Если есть аккаунт: войти</a></p>

@@ -146,3 +146,15 @@ form {
     display: block;
     margin-top: 10px;
 }
+.checkbox {
+    margin-bottom: 15px;
+}
+.checkbox label {
+    font-size: 14px;
+}
+.link-check {
+    color: #007BFF;
+}
+.link-check:hover {
+    text-decoration: underline;
+}

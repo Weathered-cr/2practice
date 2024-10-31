@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 
 def home(request):
     return render(request, 'accounts/home.html')
@@ -30,3 +31,6 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
+
+class RulesView(TemplateView):
+    template_name = 'accounts/rules.html'
