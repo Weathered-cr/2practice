@@ -8,9 +8,26 @@
 </head>
 <body>
 <div class="home">
+    {% block content %}
     <h1 class="home-header">Добро пожаловать на главную страницу!</h1>
-    <a href="{% url 'login' %}" class="home-btn">Войти</a>
-    <a href="{% url 'register' %}" class="home-btn">Зарегистрироваться</a>
+     <h2>Последние завершенные заявки</h2>
+  {% if completed_applications %}
+    <ul>
+      {% for application in completed_applications %}
+        <li>
+          {{ application.title }}
+          в категории {{ application.category }}
+          <img src="{{ application.photo.url }}" alt="">
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Еще нет завершенных заявок</p>
+  {% endif %}
+
+  <h2>Заявки в работе</h2>
+  <p>В работе {{ in_progress_count }} заявок</p>
+{% endblock %}
 </div>
 </body>
 </html>
