@@ -17,7 +17,7 @@
         <li>
           {{ application.title }}
           в категории {{ application.category }}
-          <img src="{{ application.photo.url }}" alt="">
+          <img src="{{ application.photo.url }}" alt="Фото" style="max-width: 100px;">
         </li>
       {% endfor %}
     </ul>
@@ -27,6 +27,7 @@
 
   <h2>Заявки в работе</h2>
   <p>В работе {{ in_progress_count }} заявок</p>
+  <a href="{% url 'view_applications' %}">Перейти к Заявкам</a>
 {% endblock %}
 </div>
 </body>
