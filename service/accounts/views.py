@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
+from django.http import HttpResponseForbidden
 
 def home(request):
     return render(request, 'accounts/home.html')
@@ -34,3 +35,5 @@ def register(request):
 
 class RulesView(TemplateView):
     template_name = 'accounts/rules.html'
+
+

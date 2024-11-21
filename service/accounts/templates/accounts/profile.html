@@ -10,6 +10,7 @@
     <div class="profile">
         <h1>Добро пожаловать {{ user.username }}!</h1>
         <p><a href="{% url 'home' %}" class="profile-btn">На главную</a></p>
+        <p><a href="{% url 'logout' %}" class="profile-btn">Выход</a></p>
     </div>
 </body>
 </html>
