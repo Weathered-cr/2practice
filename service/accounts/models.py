@@ -18,8 +18,11 @@ class Application(models.Model):
     category = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='photos/', max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
+
+    def __str__(self):
+        return f"{self.title} ({self.get_status_display()})"
 
 
 # Форма заявки

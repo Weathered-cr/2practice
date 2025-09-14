@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Удаление заявки</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+</head>
+<body>
+<div class="form-container">
+    <h2>Удаление заявки</h2>
+    <p>Вы уверены, что хотите удалить заявку "{{ application.title }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="home-btn">Да, удалить</button>
+        <a href="{% url 'view_applications' %}" class="home-btn">Отмена</a>
+    </form>
+</div>
+</body>
+</html>

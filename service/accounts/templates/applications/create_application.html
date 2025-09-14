@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать заявку</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+</head>
+<body>
+<div class="form-container">
+    <h2>Создание заявки</h2>
+    {% if messages %}
+      {% for m in messages %}<div class="message">{{ m }}</div>{% endfor %}
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Создать</button>
+    </form>
+    <p><a href="{% url 'view_applications' %}" class="home-btn">Назад к моим заявкам</a></p>
+</div>
+</body>
+</html>

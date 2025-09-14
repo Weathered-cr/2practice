@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Личный кабинет</title>
@@ -8,8 +8,14 @@
 </head>
 <body>
     <div class="profile">
-        <h1>Добро пожаловать {{ user.username }}!</h1>
-        <p><a href="{% url 'home' %}" class="profile-btn">На главную</a></p>
+        <h1 class="home-header">Добро пожаловать, {{ user.username }}!</h1>
+            <a href="{% url 'create_application' %}" class="home-btn">Создать заявку</a>
+            <a href="{% url 'view_applications' %}" class="home-btn">Мои заявки</a>
+            <a href="{% url 'home' %}" class="home-btn">На главную</a>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="home-btn">Выйти</button>
+            </form>
     </div>
 </body>
 </html>
