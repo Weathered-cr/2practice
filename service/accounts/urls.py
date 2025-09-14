@@ -1,8 +1,7 @@
 from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
 from . import views
-from django.conf import settings
-from django.conf.urls.static import static
+
 
 
 urlpatterns = [
@@ -17,8 +16,9 @@ urlpatterns = [
     # Заявки (внутри accounts)
     path('applications/', views.view_applications, name='view_applications'),
     path('applications/create/', views.create_application, name='create_application'),
+    path('applications/<int:pk>/update-status/', views.update_status, name='update_status'),
     path('applications/delete/<int:application_id>/', views.delete_application, name='delete_application'),
 
+    path('categories/', views.manage_categories, name='manage_categories'),
+    path('categories/<int:pk>/delete/', views.delete_category, name='delete_category'),
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

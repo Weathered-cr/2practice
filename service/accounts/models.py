@@ -5,7 +5,12 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 
 
-# Модель заявки
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 class Application(models.Model):
     STATUS_CHOICES = [
         ('new', 'Новая'),
@@ -15,14 +20,16 @@ class Application(models.Model):
 
     title = models.CharField(max_length=200)
     description = models.TextField()
-    category = models.CharField(max_length=100)
-    photo = models.ImageField(upload_to='photos/', max_length=255)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='photos/', max_length=255, blank=True, null=True)
+    design = models.ImageField(upload_to='designs/', null=True, blank=True)
+    admin_comment = models.TextField(null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
 
     def __str__(self):
-        return f"{self.title} ({self.get_status_display()})"
+        return self.title
 
 
 # Форма заявки
@@ -90,3 +97,4 @@ def home(request):
         'completed_applications': completed_applications,
         'in_progress_count': in_progress_count,
     })
+

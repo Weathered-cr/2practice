@@ -1,0 +1,21 @@
+<h2>Категории</h2>
+<ul>
+    {% for category in categories %}
+        <li>
+            {{ category.name }}
+            <form method="post" action="{% url 'delete_category' category.pk %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Удалить</button>
+            </form>
+        </li>
+    {% empty %}
+        <p>Категорий пока нет.</p>
+    {% endfor %}
+</ul>
+
+<h3>Добавить категорию</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Добавить</button>
+</form>

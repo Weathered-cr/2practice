@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
 </head>
 <body>
-    <div class="profile">
-        <h1 class="home-header">Добро пожаловать, {{ user.username }}!</h1>
-            <a href="{% url 'create_application' %}" class="home-btn">Создать заявку</a>
-            <a href="{% url 'view_applications' %}" class="home-btn">Мои заявки</a>
-            <a href="{% url 'home' %}" class="home-btn">На главную</a>
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="home-btn">Выйти</button>
-            </form>
+<div class="profile">
+    <h1>Привет, {{ user.username }}!</h1>
+
+    <div class="profile-menu">
+        <a href="{% url 'create_application' %}" class="profile-btn">Создать заявку</a>
+        <a href="{% url 'view_applications' %}" class="profile-btn">Мои заявки</a>
+        <a href="{% url 'home' %}" class="profile-btn">На главную</a>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="home-btn">Выйти</button>
+        </form>
     </div>
+</div>
 </body>
 </html>

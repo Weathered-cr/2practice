@@ -7,50 +7,46 @@
     <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
 </head>
 <body>
-<div class="table-container">
-    <h2>Мои заявки</h2>
-
-    <form method="get">
-        <label>Фильтр по статусу:</label>
-        <select name="status" onchange="this.form.submit()">
-            <option value="">Все</option>
-            <option value="new">Новая</option>
-            <option value="in_progress">Принято в работу</option>
-            <option value="completed">Выполнено</option>
-        </select>
-    </form>
+<div class="profile">
+    <h1>Мои заявки</h1>
 
     {% if applications %}
-    <table border="1" cellpadding="6">
-        <tr>
-            <th>Дата</th>
-            <th>Название</th>
-            <th>Категория</th>
-            <th>Статус</th>
-            <th>Действие</th>
-        </tr>
-        {% for app in applications %}
-        <tr>
-            <td>{{ app.timestamp|date:"d.m.Y H:i" }}</td>
-            <td>{{ app.title }}</td>
-            <td>{{ app.category }}</td>
-            <td>{{ app.get_status_display }}</td>
-            <td>
-                {% if app.status == "new" %}
-                    <a href="{% url 'delete_application' app.id %}">Удалить</a>
-                {% else %}
-                    -
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+        <table border="1" cellpadding="5" cellspacing="0" style="margin: auto;">
+            <tr>
+                <th>Дата</th>
+                <th>Название</th>
+                <th>Категория</th>
+                <th>Статус</th>
+                <th>Фото</th>
+                <th>Действия</th>
+            </tr>
+            {% for app in applications %}
+            <tr>
+                <td>{{ app.timestamp|date:"d.m.Y H:i" }}</td>
+                <td>{{ app.title }}</td>
+                <td>{{ app.category }}</td>
+                <td>{{ app.get_status_display }}</td>
+                <td>
+                    {% if app.photo %}
+                        <img src="{{ app.photo.url }}" alt="Фото" style="max-width:100px;">
+                    {% endif %}
+                </td>
+                <td>
+                    {% if app.status == "new" %}
+                        <a href="{% url 'update_status' app.id %}">Изменить статус</a> |
+                        <a href="{% url 'delete_application' app.id %}">Удалить</a>
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
     {% else %}
-    <p>Заявок пока нет.</p>
+        <p>У вас пока нет заявок.</p>
     {% endif %}
 
-    <p><a href="{% url 'create_application' %}" class="home-btn">Создать заявку</a></p>
-    <p><a href="{% url 'profile' %}" class="home-btn">Профиль</a></p>
+    <p><a href="{% url 'profile' %}" class="profile-btn">Назад в кабинет</a></p>
 </div>
 </body>
 </html>

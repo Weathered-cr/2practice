@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Главная страница</title>
@@ -8,9 +8,40 @@
 </head>
 <body>
 <div class="home">
-    <h1 class="home-header">Добро пожаловать на главную страницу!</h1>
-    <a href="{% url 'login' %}" class="home-btn">Войти</a>
-    <a href="{% url 'register' %}" class="home-btn">Зарегистрироваться</a>
+    <h1 class="home-header">Добро пожаловать на портал дизайна!</h1>
+
+    {% if user.is_authenticated %}
+        <h2>Последние выполненные заявки</h2>
+        {% if completed_applications %}
+            <div class="applications">
+                {% for app in completed_applications %}
+                    <div class="application-card">
+                        <p><b>{{ app.timestamp|date:"d.m.Y H:i" }}</b></p>
+                        <p>Название: {{ app.title }}</p>
+                        <p>Категория: {{ app.category }}</p>
+                        {% if app.photo %}
+                            <img src="{{ app.photo.url }}" alt="Фото" style="max-width:200px;">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Пока нет выполненных заявок.</p>
+        {% endif %}
+
+        <h3>Заявок в статусе «Принято в работу»: {{ in_progress_count }}</h3>
+
+        <p>
+            <a href="{% url 'profile' %}" class="home-btn">Мой кабинет</a>
+            <a href="{% url 'logout' %}" class="home-btn">Выход</a>
+        </p>
+
+    {% else %}
+        <p>
+            <a href="{% url 'login' %}" class="home-btn">Войти</a>
+            <a href="{% url 'register' %}" class="home-btn">Зарегистрироваться</a>
+        </p>
+    {% endif %}
 </div>
 </body>
 </html>

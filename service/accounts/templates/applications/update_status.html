@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Смена статуса</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+</head>
+<body>
+<div class="profile">
+    <h1>Смена статуса заявки: {{ application.title }}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="status">Выберите новый статус:</label>
+            <select name="status" id="status" required>
+                <option value="in_progress">Принято в работу</option>
+                <option value="completed">Выполнено</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="comment">Комментарий (обязательно для «Принято в работу»):</label>
+            <textarea name="comment" id="comment"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="design_image">Изображение дизайна (обязательно для «Выполнено»):</label>
+            <input type="file" name="design_image" id="design_image">
+        </div>
+
+        <button type="submit" class="reg-btn">Сохранить</button>
+    </form>
+
+    <p><a href="{% url 'view_applications' %}" class="profile-btn">Назад к заявкам</a></p>
+</div>
+</body>
+</html>

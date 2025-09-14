@@ -1,22 +1,18 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Application
+from .models import Application, Category
 
 
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(
-        widget=forms.TextInput(attrs={
-            'placeholder': 'Введите имя пользователя',
-            'class': 'form-control',
-            'id': 'id_username'  # id для согласованности, но LoginView тоже создаёт id
-        })
+        widget=forms.TextInput(attrs={'placeholder': 'Введите имя пользователя', 'class': 'form-control'})
     )
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль', 'class': 'form-control', 'id': 'id_password1'})
+        widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль', 'class': 'form-control'})
     )
     password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Подтвердите пароль', 'class': 'form-control', 'id': 'id_password2'})
+        widget=forms.PasswordInput(attrs={'placeholder': 'Подтвердите пароль', 'class': 'form-control'})
     )
 
     class Meta:
@@ -31,10 +27,30 @@ class ApplicationForm(forms.ModelForm):
 
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')
-        if photo:
-            if photo.size > 2 * 1024 * 1024:  # 2 MB
-                raise forms.ValidationError("Размер фото не должен превышать 2 МБ.")
-            ext = photo.name.split('.')[-1].lower()
-            if ext not in ['jpg', 'jpeg', 'png', 'bmp']:
-                raise forms.ValidationError("Недопустимый формат файла. Разрешены: jpg, jpeg, png, bmp.")
+        if photo and photo.size > 2 * 1024 * 1024:
+            raise forms.ValidationError("Размер фото не должен превышать 2 МБ.")
         return photo
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name']
+
+
+class UpdateStatusForm(forms.ModelForm):
+    class Meta:
+        model = Application
+        fields = ['status', 'admin_comment', 'design']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        status = cleaned_data.get("status")
+        comment = cleaned_data.get("admin_comment")
+        design = cleaned_data.get("design")
+
+        if status == "in_progress" and not comment:
+            raise forms.ValidationError("Для статуса 'Принято в работу' нужно добавить комментарий.")
+        if status == "completed" and not design:
+            raise forms.ValidationError("Для статуса 'Выполнено' нужно прикрепить дизайн.")
+        return cleaned_data

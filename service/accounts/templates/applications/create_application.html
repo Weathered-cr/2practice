@@ -7,17 +7,16 @@
     <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
 </head>
 <body>
-<div class="form-container">
-    <h2>Создание заявки</h2>
-    {% if messages %}
-      {% for m in messages %}<div class="message">{{ m }}</div>{% endfor %}
-    {% endif %}
+<div class="profile">
+    <h1>Создать новую заявку</h1>
+
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn">Создать</button>
+        <button type="submit" class="reg-btn">Создать</button>
     </form>
-    <p><a href="{% url 'view_applications' %}" class="home-btn">Назад к моим заявкам</a></p>
+
+    <p><a href="{% url 'profile' %}" class="profile-btn">Назад в кабинет</a></p>
 </div>
 </body>
 </html>
